@@ -1,9 +1,9 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Edit, Trash } from 'lucide-react';
+import { Edit, Loader, Trash } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { deleteBlog } from '@/globalApi/api';
 import { toast } from 'sonner';
@@ -29,12 +29,19 @@ const BlogCard = ({
   authorName,
   id
 }: cardprops) => {
+  const[loading, setLoading] = useState(false);
 
   const handleBlogDelete = async ()=>{
+    setLoading(true);
     try{
       const res = await deleteBlog(id);
+      setLoading(false);
       toast('Blog Deleted successfully')
+      setTimeout(()=>{
+        location.reload()
+      }, 500)
     }catch(e){
+      setLoading(false);
       console.log(e);
     }
   }
@@ -77,7 +84,7 @@ const BlogCard = ({
         </div>
         {isAdmin &&<div className='flex items-center justify-end gap-5 mt-4'>
          <Link href={`/admin/edit/${id}`}> <Edit /></Link>
-          <Trash onClick={handleBlogDelete} className='text-red-600 cursor-pointer' />
+          {loading? <Loader className='animate-spin' />: <Trash onClick={handleBlogDelete} className='text-red-600 cursor-pointer' />}
         </div>}
       </div>
     </div>
