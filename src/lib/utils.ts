@@ -74,3 +74,4 @@ export const statuses: Status[] = [
 ];
 
 export const activeNav = atom<string>('All');
+export const admin = atom<boolean>(false);

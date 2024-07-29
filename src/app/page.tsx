@@ -4,10 +4,12 @@ import { getAllBlogs } from '@/globalApi/api';
 import { useEffect, useState } from 'react';
 import { activeNav } from '@/lib/utils';
 import useNavbarChange from '@/shared/hooks/useNavbarChange';
-export default function Home({ isAdmin }: { isAdmin?: boolean }) {
+import useAdmin from '@/shared/hooks/useAdmin';
+export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const { active, setActive } = useNavbarChange();
+  const {isAdmin, setIsAdmin} = useAdmin()
   useEffect(() => {
     handleCategoryChange(active)
   }, [active]);
