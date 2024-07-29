@@ -179,7 +179,7 @@ const Form = ({
 
         <div className='flex justify-end my-4'>
           <Button type='submit'>
-            {loading ? <Loader2 className='text-white' /> : 'Submit'}
+            {loading ? <Loader2 className='text-white animate-spin' /> : 'Submit'}
           </Button>
         </div>
       </form>

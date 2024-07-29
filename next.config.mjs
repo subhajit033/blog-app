@@ -4,7 +4,8 @@ import { hostname } from 'os';
 const nextConfig = {
   images: {
     remotePatterns: [{ hostname: 's3-alpha-sig.figma.com' }],
-    remotePatterns: [{ hostname: 'loremflickr.com' }],
+    remotePatterns: [{ hostname: 'source.unsplash.com' }],
+    remotePatterns: [{ hostname: 'res.cloudinary.com' }],
   },
 };
 

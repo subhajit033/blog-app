@@ -16,9 +16,13 @@ const getAllBlogs = ()=>{
 
 const postBlog = (data:any)=>{
   return axiosClient.post('/blogs', {
-    data,
+    ...data,
   })
 }
 
-export {getAllBlogs, postBlog}
+const getSingleBlog = (id:string)=>{
+  return axiosClient.get(`/blogs/${id}`);
+}
+
+export {getAllBlogs, postBlog, getSingleBlog}
 
