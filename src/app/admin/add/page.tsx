@@ -24,7 +24,7 @@ const AddBlog = () => {
     authorName: '',
     avatar: '',
   });
-  return <Form formData={formData} setFormData={setFormData} />;
+  return <Form formData={formData} setFormData={setFormData} edit={false} />;
 };
 
 export default AddBlog;

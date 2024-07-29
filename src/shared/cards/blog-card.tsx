@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Edit, Trash } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
+import { deleteBlog } from '@/globalApi/api';
+import { toast } from 'sonner';
 interface cardprops {
   createdAt: string;
   title: string;
@@ -27,6 +29,14 @@ const BlogCard = ({
   id
 }: cardprops) => {
 
+  const handleBlogDelete = async ()=>{
+    try{
+      const res = await deleteBlog(id);
+      toast('Blog Deleted successfully')
+    }catch(e){
+      console.log(e);
+    }
+  }
   
   return (
     <div className='max-w-sm lg:max-w-[36rem] lg:flex rounded-xl'>
@@ -66,7 +76,7 @@ const BlogCard = ({
         </div>
         {isAdmin &&<div className='flex items-center justify-end gap-5 mt-4'>
           <Edit />
-          <Trash className='text-red-600' />
+          <Trash onClick={handleBlogDelete} className='text-red-600 cursor-pointer' />
         </div>}
       </div>
     </div>

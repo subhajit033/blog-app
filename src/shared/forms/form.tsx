@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 import {
   Command,
   CommandEmpty,
@@ -19,7 +20,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
-import { postBlog } from '@/globalApi/api';
+import { postBlog, editBlog } from '@/globalApi/api';
 import { Loader2 } from 'lucide-react';
 type Status = {
   value: string;
@@ -57,14 +58,17 @@ interface blogSchema {
   summary: string;
   authorName: string;
   avatar: string;
+  id?: string;
 }
 
 const Form = ({
   formData,
   setFormData,
+  edit
 }: {
   formData: blogSchema;
   setFormData: any;
+  edit: boolean
 }) => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(false);
@@ -98,13 +102,26 @@ const Form = ({
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const res = await postBlog(formData);
-      console.log(res);
-      setLoading(false);
-    } catch (e) {
-      setLoading(false);
-      console.log(e);
+    if(!edit){
+      try {
+        const res = await postBlog(formData);
+        toast('Blog added successfully')
+        console.log(res);
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+        console.log(e);
+      }
+    }else{
+      try {
+        const res = await editBlog(formData?.id as string, formData);
+        console.log(res);
+        toast('Blog edited successfully')
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+        console.log(e);
+      }
     }
   };
 
@@ -178,9 +195,13 @@ const Form = ({
         </div>
 
         <div className='flex justify-end my-4'>
-          <Button type='submit'>
-            {loading ? <Loader2 className='text-white animate-spin' /> : 'Submit'}
-          </Button>
+          {<Button type='submit'>
+            {loading ? (
+              <Loader2 className='text-white animate-spin' />
+            ) : (
+              'Submit'
+            )}
+          </Button>}
         </div>
       </form>
       <div className='space-y-8'>

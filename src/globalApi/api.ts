@@ -24,5 +24,13 @@ const getSingleBlog = (id:string)=>{
   return axiosClient.get(`/blogs/${id}`);
 }
 
-export {getAllBlogs, postBlog, getSingleBlog}
+const deleteBlog = (id: string)=>{
+  return axiosClient.delete(`/blogs/${id}`)
+}
+
+const editBlog = (id:string, data:any)=>{
+  return axiosClient.put(`/blogs/${id}`, {...data})
+}
+
+export {getAllBlogs, postBlog, getSingleBlog, deleteBlog, editBlog}
 

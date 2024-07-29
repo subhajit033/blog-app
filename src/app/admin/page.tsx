@@ -1,9 +1,14 @@
+'use client'
 import React from 'react'
+import { usePathname } from 'next/navigation'
+import Home from '../page'
 
-const page = () => {
+const AdminHome = () => {
+  const pathname = usePathname();
+  
   return (
-    <div>Admin</div>
+    <Home isAdmin={true} />
   )
 }
 
-export default page
+export default AdminHome

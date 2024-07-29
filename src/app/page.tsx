@@ -1,7 +1,7 @@
 
 import BlogCard from "@/shared/cards/blog-card";
 import { getAllBlogs } from "@/globalApi/api";
-export default async function Home() {
+export default async function Home({isAdmin}: {isAdmin: boolean}) {
   const res = await getAllBlogs();
   // console.log(res?.data);
   if(res?.data.length === 0){
@@ -13,7 +13,7 @@ export default async function Home() {
     <div className="flex justify-center items-start flex-wrap gap-10">
       {
         res?.data?.map((blog:any)=>{
-            return <BlogCard key={blog?.id} {...blog} isAdmin={false}/>
+            return <BlogCard key={blog?.id} {...blog} isAdmin={isAdmin}/>
         })
       }
       
