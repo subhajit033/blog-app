@@ -22,33 +22,7 @@ import {
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import { postBlog, editBlog } from '@/globalApi/api';
 import { Loader2 } from 'lucide-react';
-type Status = {
-  value: string;
-  label: string;
-};
-
-const statuses: Status[] = [
-  {
-    value: 'next.js',
-    label: 'Next.js',
-  },
-  {
-    value: 'sveltekit',
-    label: 'SvelteKit',
-  },
-  {
-    value: 'nuxt.js',
-    label: 'Nuxt.js',
-  },
-  {
-    value: 'remix',
-    label: 'Remix',
-  },
-  {
-    value: 'astro',
-    label: 'Astro',
-  },
-];
+import { statuses } from '@/lib/utils';
 
 interface blogSchema {
   title: string;
@@ -60,6 +34,11 @@ interface blogSchema {
   avatar: string;
   id?: string;
 }
+
+type Status = {
+  value: string;
+  label: string;
+};
 
 const Form = ({
   formData,
@@ -157,7 +136,7 @@ const Form = ({
                 {selectedStatus ? (
                   <>{selectedStatus.label}</>
                 ) : (
-                  <>+ Set status</>
+                  <>+ Set Category</>
                 )}
               </Button>
             </PopoverTrigger>

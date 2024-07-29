@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -75,7 +76,7 @@ const BlogCard = ({
           </div>
         </div>
         {isAdmin &&<div className='flex items-center justify-end gap-5 mt-4'>
-          <Edit />
+         <Link href={`/admin/edit/${id}`}> <Edit /></Link>
           <Trash onClick={handleBlogDelete} className='text-red-600 cursor-pointer' />
         </div>}
       </div>
