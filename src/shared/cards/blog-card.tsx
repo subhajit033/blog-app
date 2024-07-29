@@ -16,7 +16,8 @@ interface cardprops {
   isAdmin: boolean,
   id: string,
   authorName: string,
-  avatar: string
+  avatar: string,
+  category: string
 }
 
 const BlogCard = ({
@@ -27,6 +28,7 @@ const BlogCard = ({
   blogUrl,
   avatar,
   authorName,
+  category,
   id
 }: cardprops) => {
   const[loading, setLoading] = useState(false);
@@ -76,6 +78,7 @@ const BlogCard = ({
             <div>
               <p className='text-gray-900 leading-none'>{authorName}</p>
               <p className='text-gray-600'>{formatDate(createdAt)}</p>
+              <p className='relative top-6'>{`#${category}`}</p>
             </div>
             <Link href={`/blog/${id}`}>
             <Button size='sm'>Details</Button>

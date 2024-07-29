@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react';
 import { activeNav } from '@/lib/utils';
 import useNavbarChange from '@/shared/hooks/useNavbarChange';
 import useAdmin from '@/shared/hooks/useAdmin';
+import Spinner from './loader';
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const { active, setActive } = useNavbarChange();
   const {isAdmin, setIsAdmin} = useAdmin()
+  const[loading, setLoading] = useState(true);
   useEffect(() => {
     handleCategoryChange(active)
   }, [active]);
@@ -17,6 +19,7 @@ export default function Home() {
   useEffect(() => {
     const fetchBlogs = async () => {
       const res = await getAllBlogs();
+      setLoading(false);
       setBlogs(res?.data || []);
     };
 
@@ -31,6 +34,10 @@ export default function Home() {
     selectedCategory === 'All'
       ? blogs
       : blogs.filter((blog: any) => blog.category === selectedCategory);
+
+  if(loading){
+    return <Spinner />
+  }
 
   return (
     <div className='flex justify-center items-start flex-wrap gap-10'>
